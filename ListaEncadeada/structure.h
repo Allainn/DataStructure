@@ -18,3 +18,4 @@ void insertOrderList(List *ptr, No *n);
 void removeList(List *ptr, int id);
 void printList(No *ptr);
 void searchList(List* ptr, int id);
+void clearList(List *ptr);
