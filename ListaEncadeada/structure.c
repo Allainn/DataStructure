@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "structure.h"
 
+
 List* initList(){
     List *n = (List*) malloc(sizeof(List));
     n->inicio = NULL;
@@ -37,42 +38,59 @@ void insertBeginList(List *ptr, No *n){
     }
 }
 
-// void insertOrderList(List *ptr, No *n){
-//     if(ptr->inicio == NULL){
-//         ptr->inicio = n;
-//         ptr->fim = n;
-//     }
-//     else {
-//         No *aux1 = ptr->inicio;
-//         No *aux2
-//         if(n->id < ptr->inicio->id){
-//             n->prox = ptr->inicio;
-//             ptr->inicio = n;
-//             return;
-//         }
-//         while(aux != NULL){
-//             if(n->id < aux->id){
+void insertOrderList(List *l, No *n){
+    No *ptr = l->inicio;
+    No* aux = NULL;
+    
+    while(ptr != NULL && n->id >= ptr->id){
+        aux = ptr;
+        ptr = ptr->prox;
+    }
 
-//             }
-//         }
-        
-        
-//         n->prox = ptr->inicio;
-//         ptr->inicio = n;
-//     }
-// }
-
-
-void removeList(List *ptr, int id);
-
-void printList(No *ptr){
-    if(ptr != NULL){
-        printf("%d\t", ptr->id);
-        printList(ptr->prox);
+    if(aux == NULL){
+        n->prox = l->inicio;
+        l->inicio = n;
+        //l->fim = n;
+    }
+    else{
+        n->prox = aux->prox;
+        aux->prox = n;
     }
 }
 
-void searchList(List* ptr, int id);
+
+void removeList(List *l, int id){
+    for(No *ptr=l->inicio, *aux=NULL; ptr != NULL; aux=ptr, ptr=ptr->prox){
+        if(ptr->id == id){
+            if(ptr == l->inicio)
+                l->inicio = ptr->prox;
+            else if(ptr == l->fim){
+                aux->prox = NULL;
+                l->fim = aux;
+            }
+            else
+                aux->prox = ptr->prox;
+            printf("Removeu %d!!", ptr->id);
+            free(ptr);
+            return;
+        }
+    }
+    printf("Não Achou %d", id);
+}
+
+void printList(List *l){
+    for(No* ptr = l->inicio;ptr != NULL;ptr = ptr->prox)
+        printf("%d\t", ptr->id);
+}
+
+void searchList(List* l, int id){
+    for(No *ptr = l->inicio; ptr != NULL; ptr = ptr->prox)
+        if(ptr->id == id){
+            printf("Achou %d!!", ptr->id);
+            return;
+        }
+    printf("Não Achou %d!!", id);
+}
 
 void clearList(List *ptr){
     No *aux;
