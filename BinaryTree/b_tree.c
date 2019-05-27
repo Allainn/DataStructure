@@ -11,6 +11,7 @@ Tree* initTree(){
 No* mallocNo(int id){
     No* n = (No*) malloc(sizeof(No));
     n->id = id;
+    n->father = NULL;
     n->left = NULL;
     n->right = NULL;
     return n;
@@ -25,7 +26,8 @@ void insertTree(Tree *t, No *n){
             if(n->id < ptr->id){
                 if(ptr->left == NULL){
                     ptr->left = n;
-                    return;
+                    n->father = ptr;
+                    break;
                 }
                 else
                     ptr = ptr->left;
@@ -33,21 +35,30 @@ void insertTree(Tree *t, No *n){
             else{
                 if(ptr->right == NULL){
                     ptr->right = n;
-                    return;
+                    n->father = ptr;
+                    break;
                 }
                 else
                     ptr = ptr->right;
             }    
         }
     }
+    updateFB(t->root);
 }
 
+void updateFB(No *ptr){
+    if(ptr != NULL){
+        ptr->fb = heightTree(ptr->left) - heightTree(ptr->right);
+        updateFB(ptr->left);
+        updateFB(ptr->right);
+    }
+}
 
 
 void printInOrderTree(No *ptr){
     if(ptr != NULL){
         printInOrderTree(ptr->left);
-        printf("%d\t", ptr->id);
+        printf("%d,%d\t", ptr->id, ptr->fb);
         printInOrderTree(ptr->right);
     }
 }
@@ -69,6 +80,22 @@ void printPostOrderTree(No *ptr){
     }
 }
 
+int heightTree(No *ptr){
+    if(ptr == NULL)
+        return 0;
+    else {
+        int he = heightTree(ptr->left);
+        int hd = heightTree(ptr->right);
+        if(he < hd) return hd + 1;
+        else return he + 1;
+    } 
+}
+
 
 void removeNoTree(Tree *t, int id);
-void searchNoTree(Tree *t, int id);
+
+No* searchNoTree(Tree *t, int id){
+    // if(t == NULL)
+    //     return NULL;
+    // if(t->root != NULL) 
+}

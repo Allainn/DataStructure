@@ -6,19 +6,20 @@
 
 int main()
 {
-
-    srand(time(NULL));
+    int he, hd;
 
     Tree *t = initTree();
 
-    insertTree(t, mallocNo(63));
+    insertTree(t, mallocNo(6));
+    insertTree(t, mallocNo(5));
+    insertTree(t, mallocNo(4));
 
 
     printInOrderTree(t->root);
 
     printf("\n%d", heightTree(t->root));
 
-    printf("\n%d", t->root->id);
+    //printf("\n%d", t->root->right->id);
 
     printf("\n");
     return 0;
