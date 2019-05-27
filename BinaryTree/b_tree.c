@@ -48,8 +48,13 @@ void insertTree(Tree *t, No *n){
 
 void updateFB(No *ptr){
     if(ptr != NULL){
-        ptr->fb = heightTree(ptr->left) - heightTree(ptr->right);
         updateFB(ptr->left);
+        ptr->fb = heightTree(ptr->left) - heightTree(ptr->right);
+        if(ptr->fb == 2 || ptr->fb == -2){
+            if(ptr->left->fb == 1){
+                //rotacaoSimplesEsq
+            }
+        }
         updateFB(ptr->right);
     }
 }

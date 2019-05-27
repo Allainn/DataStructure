@@ -6,6 +6,7 @@
 List* initList(){
     List *n = (List*) malloc(sizeof(List));
     n->inicio = NULL;
+    n->fim = NULL;
     return n;
 }
 
