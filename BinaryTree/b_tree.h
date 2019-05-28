@@ -21,8 +21,9 @@ void printPostOrderTree(No *ptr);
 void removeNoTree(Tree *t, int id);
 No* searchNoTree(Tree *t, int id);
 int heightTree(No *ptr);
+void clear(No *ptr);
 
-void updateFB(No *ptr);
+void updateFB(Tree *t, No *ptr);
 void verificar(No *ptr);
 
 void rightRotation(Tree *t, No *ptr);
