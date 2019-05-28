@@ -11,13 +11,21 @@ int main()
     Tree *t = initTree();
 
     insertTree(t, mallocNo(6));
-    insertTree(t, mallocNo(5));
     insertTree(t, mallocNo(4));
+    insertTree(t, mallocNo(5));
 
 
-    printInOrderTree(t->root);
+    printInOrderTree(t->root,0);
 
-    printf("\n%d", heightTree(t->root));
+    leftRotation(t,t->root->left);
+    rightRotation(t,t->root);
+    
+    updateFB(t->root);
+    printf("\n");
+
+    printInOrderTree(t->root,0);
+
+    //printf("\n%d", heightTree(t->root));
 
     //printf("\n%d", t->root->right->id);
 

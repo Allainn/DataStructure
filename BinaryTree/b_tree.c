@@ -1,3 +1,10 @@
+/*****************************************************************
+* 
+*  Algoritimo responsvel por interações em uma arvore binaria
+*  
+*  Autor: Allainn Christiam
+*          
+******************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include "b_tree.h"
@@ -46,11 +53,12 @@ void insertTree(Tree *t, No *n){
     updateFB(t->root);
 }
 
-void rotacaoDireita(Tree *t, No *ptr){
+void rightRotation(Tree *t, No *ptr){
     No *aux = ptr->left;
     
     ptr->left = aux->right;
-    ptr->left->father = ptr;
+    if(ptr->left != NULL)
+        ptr->left->father = ptr;
     
     aux->right = ptr;
     aux->father = ptr->father;
@@ -67,16 +75,17 @@ void rotacaoDireita(Tree *t, No *ptr){
         t->root = aux;
 }
 
-void rotacaoEsquerda(Tree *t, No *ptr){
+void leftRotation(Tree *t, No *ptr){
     No *aux = ptr->right;
     
     ptr->right = aux->left;
-    ptr->right->father = ptr;
+    if(ptr->right != NULL)
+        ptr->right->father = ptr;
     
     aux->left = ptr;
-    ptr->father = aux;
-    
     aux->father = ptr->father;
+    
+    ptr->father = aux;
 
     if(ptr != t->root){
         if(aux->father->left == ptr)
@@ -102,11 +111,11 @@ void updateFB(No *ptr){
 }
 
 
-void printInOrderTree(No *ptr){
+void printInOrderTree(No *ptr, int i){
     if(ptr != NULL){
-        printInOrderTree(ptr->left);
-        printf("%d,%d\t", ptr->id, ptr->fb);
-        printInOrderTree(ptr->right);
+        printInOrderTree(ptr->left, i+1);
+        printf("(%d,%d,%d)\n", ptr->id, ptr->fb,i);
+        printInOrderTree(ptr->right, i+1);
     }
 }
 
