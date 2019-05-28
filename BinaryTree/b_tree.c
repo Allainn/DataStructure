@@ -46,15 +46,57 @@ void insertTree(Tree *t, No *n){
     updateFB(t->root);
 }
 
+void rotacaoDireita(Tree *t, No *ptr){
+    No *aux = ptr->left;
+    
+    ptr->left = aux->right;
+    ptr->left->father = ptr;
+    
+    aux->right = ptr;
+    aux->father = ptr->father;
+
+    ptr->father = aux;
+
+    if(ptr != t->root){
+        if(aux->father->left == ptr)
+            aux->father->left = aux;
+        else
+            aux->father->right = aux;
+    }
+    else
+        t->root = aux;
+}
+
+void rotacaoEsquerda(Tree *t, No *ptr){
+    No *aux = ptr->right;
+    
+    ptr->right = aux->left;
+    ptr->right->father = ptr;
+    
+    aux->left = ptr;
+    ptr->father = aux;
+    
+    aux->father = ptr->father;
+
+    if(ptr != t->root){
+        if(aux->father->left == ptr)
+            aux->father->left = aux;
+        else
+            aux->father->right = aux;
+    }
+    else
+        t->root = aux;
+}
+
 void updateFB(No *ptr){
     if(ptr != NULL){
-        updateFB(ptr->left);
         ptr->fb = heightTree(ptr->left) - heightTree(ptr->right);
-        if(ptr->fb == 2 || ptr->fb == -2){
-            if(ptr->left->fb == 1){
-                //rotacaoSimplesEsq
-            }
-        }
+        // if(ptr->fb == 2){
+        //     if(ptr->left->fb == 1){
+
+        //     }
+        // }
+        updateFB(ptr->left);
         updateFB(ptr->right);
     }
 }

@@ -24,3 +24,5 @@ int heightTree(No *ptr);
 
 void updateFB(No *ptr);
 void verificar(No *ptr);
+
+void rotacaoDireita(Tree *t, No *ptr);
