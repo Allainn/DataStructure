@@ -133,7 +133,6 @@ void leftRotation(Tree *t, No *ptr){
 void printInOrderTree(No *ptr, int i){
     if(ptr != NULL){
         printInOrderTree(ptr->left, i+1);
-        //printf("(%d,%d|%d)\n", ptr->id,i,ptr->fb);
         printf("%d,%d\n", ptr->id,i);
         printInOrderTree(ptr->right, i+1);
     }
@@ -186,7 +185,6 @@ void removeNoTree(Tree *t, int id){
                 if(ptr->father->right == ptr)
                     ptr->father->right = NULL;
                 else{
-                    printf("Entrou\n");
                     ptr->father->left = NULL;
                 }
             }
